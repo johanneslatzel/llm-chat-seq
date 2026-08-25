@@ -68,7 +68,7 @@
         "@johannes.latzel/seq-client": "^0.1.0"
     },
     "devDependencies": {
-        "@eslint/js": "^9.24.0",
+        "@eslint/js": "^10.0.1",
         "@types/node": "^26.2.0",
         "@typescript-eslint/eslint-plugin": "^8.60.0",
         "@typescript-eslint/parser": "^8.60.0",
