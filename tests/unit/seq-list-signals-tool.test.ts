@@ -81,6 +81,15 @@ describe('SeqListSignalsTool', () => {
         expect(calls[0]?.url).not.toContain('shared');
     });
 
+    it('does not force shared when shared is false', async () => {
+        const calls: Call[] = [];
+        stubFetchJson([], calls);
+        const tool = new SeqListSignalsTool(makeClient());
+        const results = await tool.execute({ shared: false });
+        expect(results[0]?.status).toBe('success');
+        expect(calls[0]?.url).not.toContain('shared=true');
+    });
+
     it('returns an error result for an invalid shared value', async () => {
         const tool = new SeqListSignalsTool(makeClient());
         const results = await tool.execute({ shared: 'yes' });
@@ -112,5 +121,24 @@ describe('SeqListSignalsTool', () => {
         const results = await tool.execute({});
         expect(results[0]?.status).toBe('error');
         expect(results[0]?.result).toContain('unreachable');
+    });
+
+    it('does not force shared when shared is false with an owner', async () => {
+        const calls: Call[] = [];
+        stubFetchJson([], calls);
+        const tool = new SeqListSignalsTool(makeClient());
+        const results = await tool.execute({ shared: false, owner_id: 'user-1' });
+        expect(results[0]?.status).toBe('success');
+        expect(calls[0]?.url).not.toContain('shared=true');
+        expect(calls[0]?.url).toContain('ownerId=user-1');
+    });
+
+    it('handles a non-Error throw', async () => {
+        const tool = new SeqListSignalsTool({
+            signals: { list: async () => { throw 'boom'; } }
+        } as unknown as SeqClient);
+        const results = await tool.execute({});
+        expect(results[0]?.status).toBe('error');
+        expect(results[0]?.result).toContain('boom');
     });
 });

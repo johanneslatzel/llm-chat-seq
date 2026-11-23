@@ -3,8 +3,8 @@ import {
     Tool,
     ToolParameters,
     ToolParameterProperty
-} from '@johannes.latzel/llm-chat';
-import type { PartialToolResult } from '@johannes.latzel/llm-chat';
+} from '@johannes.latzel/llm-chat-tool';
+import type { PartialToolResult } from '@johannes.latzel/llm-chat-tool';
 import { SeqClient, type DataQueryOptions } from '@johannes.latzel/seq-client';
 import { formatQueryResult, parseIsoDate } from '../lib/format.js';
 
@@ -60,7 +60,8 @@ export class SeqRunQueryTool extends Tool {
             return { result: errors.join('\n'), status: ResultStatus.Error };
         }
 
-        const options: DataQueryOptions = { q: args.q as string };
+        const q = String(args.q);
+        const options: DataQueryOptions = { q };
         if (rangeStart !== undefined) options.rangeStartUtc = rangeStart;
         if (rangeEnd !== undefined) options.rangeEndUtc = rangeEnd;
         if (typeof args.signal === 'string') options.signal = args.signal;
@@ -71,7 +72,7 @@ export class SeqRunQueryTool extends Tool {
             return { result: formatQueryResult(csv), status: ResultStatus.Success };
         } catch (error) {
             return {
-                result: `Seq query failed: ${(error as Error).message}`,
+                result: `Seq query failed: ${error instanceof Error ? error.message : String(error)}`,
                 status: ResultStatus.Error
             };
         }

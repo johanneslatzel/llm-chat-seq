@@ -110,4 +110,13 @@ describe('SeqQueryEventsTool', () => {
         expect(results[0]?.status).toBe('error');
         expect(results[0]?.result).toContain('network down');
     });
+
+    it('handles a non-Error throw', async () => {
+        const tool = new SeqQueryEventsTool({
+            events: { query: async () => { throw 'boom'; } }
+        } as unknown as SeqClient);
+        const results = await tool.execute({ query: 'x' });
+        expect(results[0]?.status).toBe('error');
+        expect(results[0]?.result).toContain('boom');
+    });
 });

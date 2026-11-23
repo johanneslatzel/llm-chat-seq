@@ -24,7 +24,7 @@ queries from an LLM agent.
 
 ## Prerequisites
 
-- Node.js >= 20.9
+- Node.js >= 22
 
 ## Installation
 

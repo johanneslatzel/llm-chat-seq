@@ -11,8 +11,8 @@
 ```ts
 import { SeqConfiguration } from '@johannes.latzel/llm-chat-seq';
 
-const config = new SeqConfiguration(); // all from env
-const config2 = new SeqConfiguration(url, apiKey); // overrides win
+const fromEnv = new SeqConfiguration();
+const fromArgs = new SeqConfiguration(url, apiKey);
 ```
 
 An empty or whitespace `LLM_CHAT_SEQ_URL` is treated as unset, so `createSeqClient` throws until a

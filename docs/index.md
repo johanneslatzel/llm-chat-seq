@@ -17,10 +17,10 @@ The tools are built on the llm-chat `Tool`/`ToolPackage` abstraction and plug in
 
 ## Navigation
 
-- [Quick Start](quickstart.md)
-- [API Reference](api-reference.md)
-- [Architecture](architecture.md)
-- [Environment Variables](env.md)
+- [Quick Start](quickstart.md): install and first use
+- [API Reference](api-reference.md): exported classes and tools
+- [Architecture](architecture.md): design and data flow
+- [Environment Variables](env.md): configuration reference
 
 ## License
 

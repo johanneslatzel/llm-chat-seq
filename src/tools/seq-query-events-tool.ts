@@ -3,8 +3,8 @@ import {
     Tool,
     ToolParameters,
     ToolParameterProperty
-} from '@johannes.latzel/llm-chat';
-import type { PartialToolResult } from '@johannes.latzel/llm-chat';
+} from '@johannes.latzel/llm-chat-tool';
+import type { PartialToolResult } from '@johannes.latzel/llm-chat-tool';
 import { SeqClient, type EventQueryOptions } from '@johannes.latzel/seq-client';
 import { formatEvents, parseIsoDate } from '../lib/format.js';
 
@@ -77,7 +77,7 @@ export class SeqQueryEventsTool extends Tool {
             return { result: formatEvents(events), status: ResultStatus.Success };
         } catch (error) {
             return {
-                result: `Seq query failed: ${(error as Error).message}`,
+                result: `Seq query failed: ${error instanceof Error ? error.message : String(error)}`,
                 status: ResultStatus.Error
             };
         }

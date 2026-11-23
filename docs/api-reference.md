@@ -74,7 +74,7 @@ filter expressions.
 
 | Option     | Type    | Description                                   |
 | ---------- | ------- | --------------------------------------------- |
-| `shared`   | boolean | List only shared signals.                     |
+| `shared`   | boolean | List only shared signals; defaults to `true` when `owner_id` is omitted. |
 | `owner_id` | string  | List only signals owned by the given user id. |
 
 ## Errors

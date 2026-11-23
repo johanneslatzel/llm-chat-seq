@@ -1,4 +1,4 @@
-import { ToolPackage } from '@johannes.latzel/llm-chat';
+import { ToolPackage } from '@johannes.latzel/llm-chat-tool';
 import type { SeqClient } from '@johannes.latzel/seq-client';
 import { SeqQueryEventsTool } from '../tools/seq-query-events-tool.js';
 import { SeqRunQueryTool } from '../tools/seq-run-query-tool.js';

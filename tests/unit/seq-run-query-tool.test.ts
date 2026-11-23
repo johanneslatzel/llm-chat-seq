@@ -112,4 +112,13 @@ describe('SeqRunQueryTool', () => {
         expect(results[0]?.status).toBe('error');
         expect(results[0]?.result).toContain('connection refused');
     });
+
+    it('handles a non-Error throw', async () => {
+        const tool = new SeqRunQueryTool({
+            data: { queryCsv: async () => { throw 'boom'; } }
+        } as unknown as SeqClient);
+        const results = await tool.execute({ q: 'select 1' });
+        expect(results[0]?.status).toBe('error');
+        expect(results[0]?.result).toContain('boom');
+    });
 });

@@ -2,8 +2,8 @@
 
 ## Prerequisites
 
-- Node.js >= 20.9
-- A reachable Seq server (default `http://localhost:5341`).
+- Node.js >= 22
+- A reachable Seq server; `LLM_CHAT_SEQ_URL` is required.
 
 ## Installation
 

@@ -3,8 +3,8 @@ import {
     Tool,
     ToolParameters,
     ToolParameterProperty
-} from '@johannes.latzel/llm-chat';
-import type { PartialToolResult } from '@johannes.latzel/llm-chat';
+} from '@johannes.latzel/llm-chat-tool';
+import type { PartialToolResult } from '@johannes.latzel/llm-chat-tool';
 import { SeqClient, type SignalListOptions } from '@johannes.latzel/seq-client';
 import { formatSignals } from '../lib/format.js';
 
@@ -40,7 +40,7 @@ export class SeqListSignalsTool extends Tool {
         }
 
         const options: SignalListOptions = {};
-        if (args.shared === true || args.owner_id === undefined) {
+        if (args.shared === true || (args.shared === undefined && args.owner_id === undefined)) {
             options.shared = true;
         }
         if (typeof args.owner_id === 'string') {
@@ -52,7 +52,7 @@ export class SeqListSignalsTool extends Tool {
             return { result: formatSignals(signals), status: ResultStatus.Success };
         } catch (error) {
             return {
-                result: `Seq query failed: ${(error as Error).message}`,
+                result: `Seq query failed: ${error instanceof Error ? error.message : String(error)}`,
                 status: ResultStatus.Error
             };
         }
